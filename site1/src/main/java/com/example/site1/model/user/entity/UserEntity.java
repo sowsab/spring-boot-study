@@ -23,4 +23,6 @@ public class UserEntity {
 
     @Column(name = "password", nullable = false)
     private String userPassword;
+
+    
 }

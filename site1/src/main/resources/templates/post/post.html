@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/">메인으로</a>
+    <h1>게시글 리스트</h1>
+    <div>
+        <ol th:each="dto : ${resPostDTOList}">
+            <li>
+                <span>제목 : </span>
+                <span th:text="${dto.postTitle}"></span>
+                <span><br>내용 : </span>
+                <span th:text="${dto.postContent}"></span>
+                <span><br>글쓴이 아이디 : </span>
+                <span th:text="${dto.postUserIdx}"></span>
+            </li>
+        </ol>
+    </div>
+</body>
+</html>
