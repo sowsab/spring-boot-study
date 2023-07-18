@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.site1.domain.post.dto.ResPostDTO;
-import com.example.site1.model.post.entity.PostEntity;
 import com.example.site1.model.post.repository.PostRepository;
 
 @Service
@@ -17,14 +16,10 @@ public class PostService {
 
     public List<ResPostDTO> getPostData() {
 
-        List<PostEntity> postentityList = postRepository.findAll();
-
-        List<ResPostDTO> resPostDTOs = postentityList
+        return postRepository.findAll()
         .stream()
         .map((postEntity) -> ResPostDTO.fromEntity(postEntity))
         .toList();
-
-        return resPostDTOs;
 
     }
 
