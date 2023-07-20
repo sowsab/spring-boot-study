@@ -17,9 +17,20 @@ public class EmpService {
     @Autowired
     private EmpolyeesRepository employeesRepository;
 
-    public List<EmpTableDTO> getEmpTableData(){
-        return EmpTableDTO.fromEntityList(employeesRepository.findAll());
+    public List<EmpTableDTO> getSearchEmpTableData(String firstName) {
+        // firstName이 null이면 findAll
+        // firstName이 null아니면 findByFirstName~
+        if(firstName == null) {
+            return EmpTableDTO.fromEntityList(employeesRepository.findAll());
+        } else {
+            return EmpTableDTO.fromEntityList(employeesRepository.findByFirstNameContainingIgnoreCase(firstName));
+        }
+
     }
+
+    // public List<EmpTableDTO> getEmpTableData(){
+    //     return EmpTableDTO.fromEntityList(employeesRepository.findAll());
+    // }
     
     public EmpDetailDTO getEmpDetailData(Integer employeeId) {
         Optional<EmployeesEntity> employeesEntityOptional = employeesRepository.findByEmployeeId(employeeId);
@@ -30,5 +41,7 @@ public class EmpService {
 
         return EmpDetailDTO.fromEntity(employeesEntityOptional.get());
     }
+
+
     
 }

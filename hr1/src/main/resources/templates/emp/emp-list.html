@@ -20,6 +20,14 @@
 </head>
 <body>
     <h1>직원 리스트</h1>
+
+    <div>
+
+        <input id="searchValue" type="text" placeholder="firstName을 입력하세요">
+        <button id="searchButton">검색</button>
+
+    </div>
+
     <div>
         <!-- onclick 함수에 변수 사용하는 법 -->
         <div class="card" th:onclick="goDetail([[${dto.employeeId}]])" th:each="dto : ${empTableDTOList}">
@@ -39,6 +47,14 @@
         const goDetail = (employeeId) => {
             window.location.href = "/emp/" + employeeId;
         }
+
+        document.querySelector("#searchButton").addEventListener("click", () => {
+
+            // alert(document.querySelector("#searchValue").value);
+
+            location.href = "/emp" + "?" + "firstName=" + document.querySelector("#searchValue").value;
+
+        });
 
     </script>
 </body>

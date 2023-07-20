@@ -21,4 +21,5 @@ public class ResMainDTO {
     public static ResMainDTO fromEntity(RegionsEntity regionsEntity) {
         return new ResMainDTO(regionsEntity.getRegionId(), regionsEntity.getRegionName());
     }
+
 }
