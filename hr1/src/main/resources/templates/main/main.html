@@ -1,22 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-    <input type="text" placeholder="새 지역">
-    <button class="add-button">추가</button>
+  </head>
+  <body>
+    <input id="newRegion" type="text" placeholder="새 지역" />
+    <button id="addButton" class="add-button">추가</button>
 
     <ul>
-        <li th:each="dto : ${resMainDTOList}">
-            <span th:text="${dto.regionsName}">1. 유럽</span>
-            <button class="del-button">X</button>
-        </li>
+      <li th:each="dto : ${resMainDTOList}">
+        <span th:text="${dto.regionsName}">1. 유럽</span>
+        <button class="del-button">X</button>
+      </li>
     </ul>
+    <script>
+      document.querySelector("#addButton").addEventListener("click", () => {
+        const reqInsertMainDTO = {
+          regionsName: document.querySelector("#newRegion").value,
+        };
 
-
-</body>
+        // fetch를 사용하여 서버로 데이터를 보냅니다.
+        fetch("/api/v1/main", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reqInsertMainDTO),
+        })
+          .then((response) => response.json()) // 받은 응답을 JSON으로 파싱합니다.
+          .then((data) => {
+            // 서버에서 보낸 JSON 데이터를 사용합니다.
+            console.log(data);
+            alert(data.message);
+            if(data.code === 0) {
+                location.reload();
+            }
+          })
+          .catch((error) => {
+            // 오류 처리
+            console.error("Error:", error);
+          });
+      });
+    </script>
+  </body>
 </html>
