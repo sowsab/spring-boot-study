@@ -3,6 +3,8 @@ package com.example.hr1.model.regions.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -24,6 +26,8 @@ import lombok.NoArgsConstructor;
 public class RegionsEntity {
     // 기본키 (PK)에 @Id를 붙인다
     @Id
+    // 값 자동증가
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     // 데이터베이스에 있는 컬럼명을 연결
     // 컬럼의 속성을 맞춰주는것이 좋다
     @Column(name = "region_id", nullable = false, unique = true)
