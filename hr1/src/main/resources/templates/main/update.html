@@ -1,22 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <h1>지역 수정</h1>
 
     <div>
-        <span>글 번호 : </span>
-        <span th:text="${resUpdateMainDTO.regionsId}"></span>
+      <span>글 번호 : </span>
+      <span id="regionsId" th:text="${resUpdateMainDTO.regionsId}"></span>
     </div>
     <div>
-        <input type="text" th:value="${resUpdateMainDTO.regionsName}">
-        <button>수정하기</button>
-
+      <input
+        id="regionsName"
+        type="text"
+        th:value="${resUpdateMainDTO.regionsName}"
+      />
+      <button th:onclick="updateRegion([[${resUpdateMainDTO.regionsId}]])">
+        수정하기
+      </button>
     </div>
-</body>
+
+    <script>
+      // 방법 1
+      // document.querySelector("#regionsId").innerText;
+
+      const updateRegion = (regionsId) => {
+          const regionName = document.querySelector("#regionsName").value;
+          const dto = {
+            regionsName: regionName,
+          };
+
+        fetch("/api/v1/main/" + regionsId, {
+          method: "PUT",
+          body: JSON.stringify(dto),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            alert(result.message);
+            if (result.code === 0) {
+              location.href = "/";
+            }
+          });
+      };
+    </script>
+  </body>
 </html>

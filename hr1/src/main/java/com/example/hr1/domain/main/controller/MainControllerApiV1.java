@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hr1.common.dto.ResponseDTO;
 import com.example.hr1.domain.main.dto.ReqInsertMainDTO;
+import com.example.hr1.domain.main.dto.ReqUpdateMainDTO;
 import com.example.hr1.domain.main.dto.ResMainDTO;
 import com.example.hr1.domain.main.service.MainService;
 
@@ -48,6 +49,19 @@ public class MainControllerApiV1 {
                 .build();
     }
 
+    @PutMapping("/api/v1/main/{regionsId}")
+    public ResponseDTO<Object> updateMainData(
+        @PathVariable Integer regionsId,
+        @RequestBody ReqUpdateMainDTO reqUpdateMainDTO) {
+
+        mainService.updateMainData(regionsId, reqUpdateMainDTO);
+        
+        return ResponseDTO.builder()
+                .code(0)
+                .message("region 수정에 성공했습니다")
+                .build();
+                
+    }
     
 
 }
