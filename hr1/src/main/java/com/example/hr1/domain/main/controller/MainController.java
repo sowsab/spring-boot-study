@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.hr1.domain.main.dto.ResMainDTO;
+import com.example.hr1.domain.main.dto.ResUpdateMainDTO;
 import com.example.hr1.domain.main.service.MainService;
 
 @Controller
@@ -26,4 +28,14 @@ public class MainController {
         modelAndView.setViewName("main/main");
         return modelAndView;
     }
+
+    @GetMapping("/main/update-page/{regionId}")
+    public ModelAndView updatePage(@PathVariable Integer regionId) {
+        ModelAndView modelAndView = new ModelAndView();
+        ResUpdateMainDTO resUpdateMainDTO = mainService.getUpdateMainPageData(regionId);
+        modelAndView.addObject("resUpdateMainDTO", resUpdateMainDTO);
+        modelAndView.setViewName("main/update");
+        return modelAndView;
+    }
+
 }

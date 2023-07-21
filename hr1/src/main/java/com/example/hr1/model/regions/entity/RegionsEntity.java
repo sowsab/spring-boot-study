@@ -32,9 +32,17 @@ public class RegionsEntity {
     @Column(name = "region_name")
     private String regionName;
 
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
     @Override
     public String toString() {
         return "RegionsEntity [regionId=" + regionId + ", regionName=" + regionName + "]";
+    }
+
+    public boolean isPresent() {
+        return false;
     }
 
     

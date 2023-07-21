@@ -11,11 +11,36 @@
 
     <ul>
       <li th:each="dto : ${resMainDTOList}">
+        <span th:text="${dto.regionsId}">1. 유럽</span>
         <span th:text="${dto.regionsName}">1. 유럽</span>
-        <button class="del-button">X</button>
+        <button class="del-button" th:onclick="deleteRegion([[${dto.regionsId}]])">X</button>
+        <button class="update-button" th:onclick="goUpdatePage([[${dto.regionsId}]])">수정</button>
       </li>
     </ul>
     <script>
+
+      const goUpdatePage = (regionsId) => {
+        location.href = "/main/update-page/" + regionsId;
+      }
+
+      const deleteRegion = (regionsId) => {
+
+        const check = confirm(`정말 ${regionsId}번 지역을 삭제하시겠습니까`);
+
+        if(check) {
+          fetch("/api/v1/main/" + regionsId , {
+            method: "DELETE",
+          })
+            .then((response) => response.json())
+            .then((result)=> {
+              alert(result.message);
+              if(result.code === 0) {
+                  location.reload();
+              }
+            });
+        }
+      };
+
       document.querySelector("#addButton").addEventListener("click", () => {
         const reqInsertMainDTO = {
           regionsName: document.querySelector("#newRegion").value,
