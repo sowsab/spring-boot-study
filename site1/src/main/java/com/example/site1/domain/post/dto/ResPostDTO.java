@@ -28,7 +28,7 @@ public class ResPostDTO {
             .postIdx(postEntity.getPostIdx())
             .postTitle(postEntity.getPostTitle())
             .postContent(postEntity.getPostContent())
-            .postUserIdx(postEntity.getPostUserIdx())
+            .postUserIdx(postEntity.getUserEntity().getUserIdx())
             .build();
 
     }

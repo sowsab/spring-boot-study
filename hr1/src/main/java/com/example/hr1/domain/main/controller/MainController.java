@@ -12,6 +12,9 @@ import com.example.hr1.domain.main.dto.ResMainDTO;
 import com.example.hr1.domain.main.dto.ResUpdateMainDTO;
 import com.example.hr1.domain.main.service.MainService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class MainController {
     
@@ -21,7 +24,12 @@ public class MainController {
     @GetMapping("/")
     // Mapping을 기반으로 함수를 실행 시키기 떄문에
     // contoller의 함수 이름은 중요하지 않다
-    public ModelAndView mainPage() {
+    public ModelAndView mainPage(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+
+        session.setAttribute("name", "hong");
+
         ModelAndView modelAndView = new ModelAndView();
         List<ResMainDTO> resMainDTOList = mainService.getMainPageData();
         modelAndView.addObject("resMainDTOList", resMainDTOList);
@@ -30,7 +38,12 @@ public class MainController {
     }
 
     @GetMapping("/main/update-page/{regionId}")
-    public ModelAndView updatePage(@PathVariable Integer regionId) {
+    public ModelAndView updatePage(@PathVariable Integer regionId, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+
+        System.out.println(session.getAttribute("name"));
+
         ModelAndView modelAndView = new ModelAndView();
         ResUpdateMainDTO resUpdateMainDTO = mainService.getUpdateMainPageData(regionId);
         modelAndView.addObject("resUpdateMainDTO", resUpdateMainDTO);

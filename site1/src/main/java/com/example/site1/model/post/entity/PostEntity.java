@@ -1,8 +1,14 @@
 package com.example.site1.model.post.entity;
 
+import com.example.site1.model.user.entity.UserEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PostEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idx", nullable = false, unique = true)
     private Integer postIdx;
 
@@ -26,8 +33,9 @@ public class PostEntity {
     @Column(name = "content", nullable = false)
     private String postContent;
 
-    @Column(name = "user_idx", nullable = false)
-    private Integer postUserIdx;
+    @ManyToOne
+    @JoinColumn(name = "user_idx", referencedColumnName = "idx", nullable = false)
+    private UserEntity userEntity;
     
 
 }

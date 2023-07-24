@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hr1.common.dto.ResponseDTO;
@@ -18,17 +19,18 @@ import com.example.hr1.domain.main.dto.ResMainDTO;
 import com.example.hr1.domain.main.service.MainService;
 
 @RestController
+@RequestMapping("/api/v1/main")
 public class MainControllerApiV1 {
     
     @Autowired
     private MainService mainService;
 
-    @GetMapping("/api/v1/main")
+    @GetMapping
     public List<ResMainDTO> getMainData() {
         return mainService.getMainPageData();
     }
 
-    @PostMapping("/api/v1/main")
+    @PostMapping
     public ResponseDTO<Object> postMainData(@RequestBody ReqInsertMainDTO reqInsertMainDTO) {
         // System.out.println(reqInsertMainDTO);
         mainService.postMainData(reqInsertMainDTO);
@@ -39,7 +41,7 @@ public class MainControllerApiV1 {
                 .build();
     }
 
-    @DeleteMapping("/api/v1/main/{regionsId}")
+    @DeleteMapping("/{regionsId}")
     public ResponseDTO<Object> deleteMainData(@PathVariable Integer regionsId) {
         mainService.deleteMainData(regionsId);
 
@@ -49,7 +51,7 @@ public class MainControllerApiV1 {
                 .build();
     }
 
-    @PutMapping("/api/v1/main/{regionsId}")
+    @PutMapping("/{regionsId}")
     public ResponseDTO<Object> updateMainData(
         @PathVariable Integer regionsId,
         @RequestBody ReqUpdateMainDTO reqUpdateMainDTO) {
