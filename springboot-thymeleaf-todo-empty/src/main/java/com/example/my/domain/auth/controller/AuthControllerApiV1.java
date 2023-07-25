@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-// Autowired 안쓰는 방식
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
 public class AuthControllerApiV1 {
@@ -27,8 +26,8 @@ public class AuthControllerApiV1 {
 
     @PostMapping("/join")
     public ResponseEntity<?> join(@RequestBody ReqJoinDTO dto) {
-
-        return authServiceApiV1.join(dto);
+        // TODO : 서비스에서 회원가입하기
+        return null;
     }
 
 }
