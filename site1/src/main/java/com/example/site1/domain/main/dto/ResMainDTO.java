@@ -7,27 +7,23 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
 public class ResMainDTO {
-    
-    private Integer userIdx;
-    private String userId;
-    private String userPassword;
+
+    private String id;
 
     public static ResMainDTO fromEntity(UserEntity userEntity) {
-        // return new ResMainDTO(userEntity.getUserIdx(), userEntity.getUserId(), userEntity.getUserPassword());
+
+        // return new ResMainDTO(userEntity.getId());
 
         return ResMainDTO.builder()
-        .userId(userEntity.getUserId())
-        .build();
-
+                .id(userEntity.getId())
+                .build();
     }
 
 }

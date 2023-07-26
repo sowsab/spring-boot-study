@@ -10,19 +10,20 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.site1.domain.main.dto.ResMainDTO;
 import com.example.site1.domain.main.service.MainService;
 
+
 @Controller
 public class MainController {
-    
+
     @Autowired
     private MainService mainService;
 
     @GetMapping("/")
-    public ModelAndView mainPage() {
+    public ModelAndView mainPage(){
         ModelAndView modelAndView = new ModelAndView();
-        List<ResMainDTO> resMainDTOList = mainService.getMainPageData();
+        List<ResMainDTO> resMainDTOList = mainService.getMainData();
         modelAndView.addObject("resMainDTOList", resMainDTOList);
-        modelAndView.setViewName("main/main");
+        modelAndView.setViewName("main");
         return modelAndView;
     }
-
+    
 }

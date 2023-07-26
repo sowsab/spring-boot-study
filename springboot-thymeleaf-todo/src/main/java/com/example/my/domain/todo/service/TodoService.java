@@ -19,7 +19,11 @@ public class TodoService {
 
     public ResTodoTableDTO getTodoTableData(LoginUserDTO loginUserDTO) {
         // TODO : 리파지토리에서 유저 기본키로 삭제되지 않은 할 일 목록 찾기
-        return null;
+        List<TodoEntity> todoEntityList = todoRepository.findByUserEntity_IdxAndDeleteDateIsNull(loginUserDTO.getUser().getIdx());
+
+        ResTodoTableDTO dto = ResTodoTableDTO.of(todoEntityList);
+
+        return dto;
     }
 
 }

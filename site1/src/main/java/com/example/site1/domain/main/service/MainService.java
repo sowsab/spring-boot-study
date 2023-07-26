@@ -15,17 +15,15 @@ public class MainService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<ResMainDTO> getMainPageData() {
-
+    public List<ResMainDTO> getMainData(){
         List<UserEntity> userEntityList = userRepository.findAll();
 
-        List<ResMainDTO> resMainDTOs = userEntityList
+        List<ResMainDTO> resMainDTOList = userEntityList
         .stream()
         .map((userEntity) -> ResMainDTO.fromEntity(userEntity))
         .toList();
 
-        return resMainDTOs;
-
+        return resMainDTOList;
     }
 
 }
