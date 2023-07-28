@@ -1,5 +1,6 @@
 package com.example.my.domain.todo.controller;
 
+import com.example.my.common.dto.LoginUserDTO;
 import com.example.my.domain.todo.dto.ReqTodoTableInsertDTO;
 import com.example.my.domain.todo.dto.ReqTodoTableUpdateDoneYnDTO;
 import com.example.my.domain.todo.service.TodoServiceApiV1;
@@ -17,8 +18,9 @@ public class TodoControllerApiV1 {
 
     @GetMapping
     public ResponseEntity<?> getTodoTableData(HttpSession session) {
-        // TODO : 서비스에서 할 일 목록 가져오기
-        return null;
+        // 서비스에서 할 일 목록 가져오기
+        LoginUserDTO loginUserDTO = (LoginUserDTO)session.getAttribute("dto");
+        return todoServiceApiV1.getTodoTableData(loginUserDTO);
     }
 
     @PostMapping
@@ -26,8 +28,9 @@ public class TodoControllerApiV1 {
             @RequestBody ReqTodoTableInsertDTO dto,
             HttpSession session
     ) {
-        // TODO : 서비스에서 할 일 추가하기
-        return null;
+        // 서비스에서 할 일 추가하기
+        LoginUserDTO loginUserDTO = (LoginUserDTO)session.getAttribute("dto");
+        return todoServiceApiV1.insertTodoTableData(dto, loginUserDTO);
     }
 
     @PutMapping("/{todoIdx}")
@@ -36,8 +39,9 @@ public class TodoControllerApiV1 {
             @RequestBody ReqTodoTableUpdateDoneYnDTO dto,
             HttpSession session
     ) {
-        // TODO : 서비스에서 할 일 완료 수정하기
-        return null;
+        // 서비스에서 할 일 완료 수정하기
+        LoginUserDTO loginUserDTO = (LoginUserDTO)session.getAttribute("dto");
+        return todoServiceApiV1.updateTodoTableData(todoIdx, dto, loginUserDTO);
     }
 
     @DeleteMapping("/{todoIdx}")
@@ -45,8 +49,9 @@ public class TodoControllerApiV1 {
             @PathVariable Long todoIdx,
             HttpSession session
     ) {
-        // TODO : 서비스에서 할 일 삭제하기
-        return null;
+        // 서비스에서 할 일 삭제하기
+        LoginUserDTO loginUserDTO = (LoginUserDTO)session.getAttribute("dto");
+        return todoServiceApiV1.deleteTodoTableData(todoIdx, loginUserDTO);
     }
 
 

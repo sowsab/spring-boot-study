@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>form Get</h1>
+    <!-- action 매핑 주소 -->
+    <form action="/temp" method="get">
+      <!-- name: 컨트롤러의 매개변수와 연동 (중요) -->
+      <input type="text" name="name" />
+      <input type="text" name="age" />
+      <!-- submit 타입은 자동 요청(기본 타입) -->
+      <button>제출</button>
+    </form>
+    <hr />
+    <h1>form Post</h1>
+    <!-- 주소창에 쿼리문이 보이지 않음 (보안이 필요한 기능) -->
+    <form action="/temp" method="post">
+      <input type="text" name="name" />
+      <input type="text" name="age" />
+      <button>제출</button>
+    </form>
+    <hr />
+    <h1>from Post file</h1>
+    <form action="/file" method="post" enctype="multipart/form-data">
+      <!-- 여러 파일을 받을때는 mutiple을 입력한다 -->
+      <input type="file" name="files" multiple />
+      <button>제출</button>
+    </form>
+  </body>
+</html>
