@@ -28,10 +28,10 @@ public class AuthServiceApiV1 {
         public ResponseEntity<?> login(ReqLoginDTO dto, HttpSession session) {
                 // // 유효성 체크
                 // if (dto.getUser().getId() == null ||
-                //                 dto.getUser().getId().equals("") ||
-                //                 dto.getUser().getPassword() == null ||
-                //                 dto.getUser().getPassword().equals("")) {
-                //         throw new BadRequestException("아이디나 비밀번호를 입력해주세요");
+                // dto.getUser().getId().equals("") ||
+                // dto.getUser().getPassword() == null ||
+                // dto.getUser().getPassword().equals("")) {
+                // throw new BadRequestException("아이디나 비밀번호를 입력해주세요");
 
                 // }
 
@@ -69,10 +69,10 @@ public class AuthServiceApiV1 {
         public ResponseEntity<?> join(ReqJoinDTO dto) {
                 // // 회원가입 정보 입력했는지 확인
                 // if (dto.getUser().getId() == null ||
-                //                 dto.getUser().getId().equals("") ||
-                //                 dto.getUser().getPassword() == null ||
-                //                 dto.getUser().getPassword().equals("")) {
-                //         throw new BadRequestException("아이디나 비밀번호를 입력해주세요");
+                // dto.getUser().getId().equals("") ||
+                // dto.getUser().getPassword() == null ||
+                // dto.getUser().getPassword().equals("")) {
+                // throw new BadRequestException("아이디나 비밀번호를 입력해주세요");
 
                 // }
 

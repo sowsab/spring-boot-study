@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "user")
@@ -22,14 +23,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 @Builder
+@ToString
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idx")
+    @Column(name = "idx", nullable = false, unique = true)
     private Integer idx;
 
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     private String id;
 
     @Column(name = "password", nullable = false)
@@ -38,9 +40,5 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity")
     private List<PostEntity> postEntityList;
 
-    @Override
-    public String toString() {
-        return "UserEntity [idx=" + idx + ", id=" + id + ", password=" + password + "]";
-    }
 
 }

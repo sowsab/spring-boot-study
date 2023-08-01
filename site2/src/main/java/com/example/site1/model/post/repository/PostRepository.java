@@ -32,7 +32,7 @@ public interface PostRepository extends JpaRepository<PostEntity, Integer> {
     // from post
     // where title =?
     // or content = ?
-    List<PostEntity> findbyTitleOrContent(String title, String content);
+    List<PostEntity> findByTitleOrContent(String title, String content);
 
     // select *
     // from post

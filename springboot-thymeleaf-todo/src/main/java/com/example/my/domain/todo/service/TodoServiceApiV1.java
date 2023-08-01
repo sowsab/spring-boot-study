@@ -30,7 +30,8 @@ public class TodoServiceApiV1 {
 
     public ResponseEntity<?> getTodoTableData(LoginUserDTO loginUserDTO) {
         // 리파지토리에서 유저 기본키로 삭제되지 않은 할 일 목록 찾기
-        todoRepository.findByDeleteDateIsNull();
+        Optional<UserEntity> userEntityOptional = userRepository
+                .findByIdxAndDeleteDateIsNull(loginUserDTO.getUser().getIdx());
 
         // 응답 데이터로 리턴하기 (할 일 목록 조회에 성공하였습니다.)
         return new ResponseEntity<>(
@@ -44,9 +45,12 @@ public class TodoServiceApiV1 {
     @Transactional
     public ResponseEntity<?> insertTodoTableData(ReqTodoTableInsertDTO dto, LoginUserDTO loginUserDTO) {
         // 할 일을 입력했는지 확인
-        if (dto == null) {
+        if (dto.getTodo().getContent() == null ||
+                dto.getTodo().getContent() == " " ||
+                dto.getTodo().getContent() == "") {
             throw new BadRequestException("할 일을 입력해주세요");
         }
+
         // 리파지토리에서 유저 기본키로 삭제되지 않은 유저 찾기
         Optional<UserEntity> userEntityOptional = userRepository
                 .findByIdxAndDeleteDateIsNull(loginUserDTO.getUser().getIdx());
@@ -59,6 +63,7 @@ public class TodoServiceApiV1 {
                 .userEntity(userEntityOptional.get())
                 .createDate(LocalDateTime.now())
                 .build();
+
         // 할 일 엔티티 저장
         todoRepository.save(todoEntity);
 
@@ -66,7 +71,7 @@ public class TodoServiceApiV1 {
         return new ResponseEntity<>(
                 ResponseDTO.builder()
                         .code(0)
-                        .message("할 일 저장에 성공했습니다")
+                        .message("할 일 추가에 성공했습니다")
                         .build(),
                 HttpStatus.OK);
     }

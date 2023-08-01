@@ -1,14 +1,15 @@
-package com.example.site1.model.post.entity;
+package com.example.site1.model.user.entity;
 
-import com.example.site1.model.user.entity.UserEntity;
+import java.util.List;
+
+import com.example.site1.model.post.entity.PostEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,27 +18,25 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "post")
+@Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
 @ToString
-public class PostEntity {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idx", nullable = false, unique = true)
     private Integer idx;
 
-    @Column(name = "title", nullable = false)
-    private String title;
+    @Column(name = "id", nullable = false, unique = true)
+    private String id;
 
-    @Column(name = "content", nullable = false)
-    private String content;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "user_idx", referencedColumnName = "idx", nullable = false)
-    private UserEntity userEntity;
     
+
 }

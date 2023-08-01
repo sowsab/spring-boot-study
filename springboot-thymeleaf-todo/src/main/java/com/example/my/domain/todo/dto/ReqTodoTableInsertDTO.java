@@ -1,5 +1,6 @@
 package com.example.my.domain.todo.dto;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
