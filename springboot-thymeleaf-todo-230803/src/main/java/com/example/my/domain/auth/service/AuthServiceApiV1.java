@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,31 +24,34 @@ import java.util.Optional;
 public class AuthServiceApiV1 {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public ResponseEntity<?> login(ReqLoginDTO dto, HttpSession session){
-        Optional<UserEntity> userEntityOptional = userRepository.findByIdAndDeleteDateIsNull(dto.getUser().getId());
+    // public ResponseEntity<?> login(ReqLoginDTO dto, HttpSession session){
+    //     Optional<UserEntity> userEntityOptional = userRepository.findByIdAndDeleteDateIsNull(dto.getUser().getId());
 
-        if (userEntityOptional.isEmpty()) {
-            throw new BadRequestException("존재하지 않는 사용자입니다.");
-        }
+    //     if (userEntityOptional.isEmpty()) {
+    //         throw new BadRequestException("존재하지 않는 사용자입니다.");
+    //     }
 
-        UserEntity userEntity = userEntityOptional.get();
+    //     UserEntity userEntity = userEntityOptional.get();
 
-        if (!userEntity.getPassword().equals(dto.getUser().getPassword())) {
-            throw new BadRequestException("비밀번호가 일치하지 않습니다.");
-        }
+    //     // passwordEncoder.matches(dto.getUser().getPassword(), userEntity.getPassword());
 
-        session.setAttribute("loginUserDTO", LoginUserDTO.of(userEntity));
+    //     if (!userEntity.getPassword().equals(dto.getUser().getPassword())) {
+    //         throw new BadRequestException("비밀번호가 일치하지 않습니다.");
+    //     }
 
-        return new ResponseEntity<>(
-                ResponseDTO.builder()
-                        .code(0)
-                        .message("로그인에 성공하였습니다.")
-                        .build(),
-                HttpStatus.OK
-        );
+    //     session.setAttribute("loginUserDTO", LoginUserDTO.of(userEntity));
 
-    }
+    //     return new ResponseEntity<>(
+    //             ResponseDTO.builder()
+    //                     .code(0)
+    //                     .message("로그인에 성공하였습니다.")
+    //                     .build(),
+    //             HttpStatus.OK
+    //     );
+
+    // }
 
     @Transactional
     public ResponseEntity<?> join(ReqJoinDTO dto) {
@@ -58,9 +62,11 @@ public class AuthServiceApiV1 {
             throw new BadRequestException("이미 존재하는 아이디입니다.");
         }
 
+        String endcodedPassword = passwordEncoder.encode(dto.getUser().getPassword());
+
         UserEntity userEntityForSaving = UserEntity.builder()
                 .id(dto.getUser().getId())
-                .password(dto.getUser().getPassword())
+                .password(endcodedPassword)
                 .createDate(LocalDateTime.now())
                 .build();
 

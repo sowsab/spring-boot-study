@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**", "/api/*/auth/**")
                 .permitAll()
                 .requestMatchers("/admin/**", "/api/*/auth/**")
-                // 위에 해당하느 주소는 AMDIN 권한이 있는 사람만 접근할 수 있다
+                // 위에 해당하는 주소는 AMDIN 권한이 있는 사람만 접근할 수 있다
                 // .hasAuthority("ROLE_ADMIN")
                 .hasRole("ADMIN")
                 .anyRequest() // 나머지 모든 주소
