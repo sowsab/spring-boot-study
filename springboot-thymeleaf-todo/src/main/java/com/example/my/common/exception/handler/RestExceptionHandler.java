@@ -13,7 +13,7 @@ import com.example.my.common.dto.ResponseDTO;
 import com.example.my.common.exception.BadRequestException;
 
 @RestControllerAdvice
-public class RestExctptionHandler {
+public class RestExceptionHandler {
 
     @ExceptionHandler(BindException.class)
     public ResponseEntity<?> handleBindException(BindException bindException) {
